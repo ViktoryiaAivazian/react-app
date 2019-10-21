@@ -32,14 +32,16 @@ class App extends Component {
     }
 
     render() {
+        const {movies, currentMovie} = this.state;
+
         return (
             <Router>
                 <Switch>
                     <Route exact path="/">
-                        <HomePage movies={this.state.movies} updateCurrentMovie={this.updateCurrentMovie}/>
+                        <HomePage movies={movies} updateCurrentMovie={this.updateCurrentMovie}/>
                     </Route>
                     <Route exact path="/movie-page/:id">
-                        <MoviePage movies={this.state.movies} updateCurrentMovie={this.updateCurrentMovie} currentMovie={this.state.currentMovie}/>
+                        <MoviePage movies={movies} updateCurrentMovie={this.updateCurrentMovie} currentMovie={currentMovie}/>
                     </Route>
                 </Switch>
             </Router>

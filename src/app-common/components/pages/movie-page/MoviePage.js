@@ -12,21 +12,23 @@ class MoviePage extends Component {
     }
 
     render() {
+        const {movies, currentMovie} = this.props;
+
         return (
             <main className="main">
-                {Object.keys(this.props.movies)
-                    .filter(key => this.props.movies[key].id === this.props.currentMovie)
+                {Object.keys(movies)
+                    .filter(key => movies[key].id === currentMovie)
                     .map((key, index) => {
                         return <Movie key={index}
-                                      id={this.props.movies[key].id}
-                                      name={this.props.movies[key].title}
-                                      descr={this.props.movies[key].tagline}
-                                      time={this.props.movies[key].runtime}
-                                      info={this.props.movies[key].overview}
-                                      year={new Date(this.props.movies[key].release_date).getFullYear()}
-                                      genre={this.props.movies[key].genres.join(" , ")}
-                                      url={(this.props.movies[key].poster_path ? this.props.movies[key].poster_path : null)}
-                                      imgName={this.props.movies[key].title}/>
+                                      id={movies[key].id}
+                                      name={movies[key].title}
+                                      descr={movies[key].tagline}
+                                      time={movies[key].runtime}
+                                      info={movies[key].overview}
+                                      year={new Date(movies[key].release_date).getFullYear()}
+                                      genre={movies[key].genres.join(" , ")}
+                                      url={(movies[key].poster_path ? movies[key].poster_path : null)}
+                                      imgName={movies[key].title}/>
                     })
                 }
                 <div className="content">
@@ -37,7 +39,7 @@ class MoviePage extends Component {
                     </div>
                     <div className="content__bottom">
                         <div className="container">
-                            <MoviesList movies={this.props.movies} updateCurrentMovie={this.props.updateCurrentMovie}/>
+                            <MoviesList movies={movies} updateCurrentMovie={this.props.updateCurrentMovie}/>
                         </div>
                     </div>
                 </div>
