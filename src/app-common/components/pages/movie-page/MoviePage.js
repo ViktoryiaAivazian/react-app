@@ -12,7 +12,7 @@ class MoviePage extends Component {
     }
 
     render() {
-        const {movies, currentMovie} = this.props;
+        const {movies, currentMovie, updateCurrentMovie} = this.props;
 
         return (
             <main className="main">
@@ -39,7 +39,7 @@ class MoviePage extends Component {
                     </div>
                     <div className="content__bottom">
                         <div className="container">
-                            <MoviesList movies={movies} updateCurrentMovie={this.props.updateCurrentMovie}/>
+                            <MoviesList movies={movies} updateCurrentMovie={updateCurrentMovie}/>
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ class HomePage extends Component {
     }
 
     render() {
-        const {movies} = this.props;
+        const {movies, updateCurrentMovie} = this.props;
 
         return (
             <main className="main">
@@ -26,7 +26,7 @@ class HomePage extends Component {
                     </div>
                     <div className="content__bottom">
                         <div className="container">
-                            <MoviesList movies={movies} updateCurrentMovie={this.props.updateCurrentMovie}/>
+                            <MoviesList movies={movies} updateCurrentMovie={updateCurrentMovie}/>
                         </div>
                     </div>
                 </div>

@@ -11,13 +11,13 @@ class MoviesList extends Component {
     }
 
     render() {
-        const {movies} = this.props;
+        const {movies, updateCurrentMovie} = this.props;
         return (
             <div className="content__outer">
                 { movies ? (
                     movies.map((movie, i) =>
                         <div className="content__itm" key={movie.id}>
-                            <Link to={`/movie-page/${movie.id}`} onClick={() => { this.props.updateCurrentMovie(movie.id)}}>
+                            <Link to={`/movie-page/${movie.id}`} onClick={() => { updateCurrentMovie(movie.id)}}>
                                 <Card
                                     name={movie.title}
                                     year={new Date(movie.release_date).getFullYear()}
