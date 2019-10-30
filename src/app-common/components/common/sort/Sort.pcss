@@ -1,0 +1,29 @@
+.sort {
+    color: #a6a6a6;
+    &__outer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .filter {
+        &__span {
+            padding: 0;
+            background: none;
+            text-transform: uppercase;
+            border-color: transparent;
+
+            font-size: 14px;
+        }
+        &__text {
+            color: #a6a6a6;
+        }
+        &__radio {
+            &:checked ~ span{
+                color: #e50914;
+                background: none;
+                border-color: transparent;
+            }
+        }
+    }
+}
