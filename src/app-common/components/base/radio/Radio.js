@@ -10,17 +10,19 @@ class Radio extends Component{
 
     render(){
 
+        const {caption, value, name, checked, handleChange} = this.props;
+
         return (
             <label className="filter__label">
                 <input
                     className="filter__radio"
                     type="radio"
-                    value={this.props.value}
-                    name={this.props.name}
-                    checked={this.props.defaultChecked}
-                    onChange={this.props.handleChange}/>
+                    value={value}
+                    name={name}
+                    checked={checked}
+                    onChange={handleChange}/>
 
-                <span className="filter__span">{this.props.value}</span>
+                <span className="filter__span">{caption}</span>
             </label>
         )
     }

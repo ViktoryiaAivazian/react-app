@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import './MoviesList.pcss';
 import Card from "../card/Card.js";
@@ -11,13 +11,13 @@ class MoviesList extends Component {
     }
 
     render() {
-        const {movies, updateCurrentMovie} = this.props;
+        const {getCurrentMovie, filteredMovies} = this.props;
         return (
             <div className="content__outer">
-                { movies ? (
-                    movies.map((movie, i) =>
+                { filteredMovies.length ? (
+                        filteredMovies.map((movie, i) =>
                         <div className="content__itm" key={movie.id}>
-                            <Link to={`/movie-page/${movie.id}`} onClick={() => { updateCurrentMovie(movie.id)}}>
+                            <Link to={`/movie-page/${movie.id}`} onClick={() => {getCurrentMovie(movie.id)}}>
                                 <Card
                                     name={movie.title}
                                     year={new Date(movie.release_date).getFullYear()}
@@ -30,7 +30,7 @@ class MoviesList extends Component {
                         )
                     ):
                     (
-                        <div className="spinner"> Loading ...</div>
+                        <div className="spinner"> No films found ... </div>
                     )
                 }
             </div>

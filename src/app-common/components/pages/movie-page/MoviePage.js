@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import './MoviePage.pcss';
 import Movie from "../../common/movie/Movie.js";
-import MoviesList from "../../common/movieslist/MoviesList";
+import MoviesListGenres from "../../common/movies-list-genres/MoviesListGenres";
 import Footer from "../../common/footer/Footer.js";
 
 class MoviePage extends Component {
@@ -12,7 +12,7 @@ class MoviePage extends Component {
     }
 
     render() {
-        const {movies, currentMovie, updateCurrentMovie} = this.props;
+        const {movies, currentMovie, getCurrentMovie, currentMoviesGenres, selectedMovieGenre} = this.props;
 
         return (
             <main className="main">
@@ -34,12 +34,12 @@ class MoviePage extends Component {
                 <div className="content">
                     <div className="content__top">
                         <div className="container">
-                            <span className="movie__genre">Films by {this.props.genre} genre</span>
+                            <span className="movie__genre">Films by {selectedMovieGenre.join(" , ").toLowerCase()} genres</span>
                         </div>
                     </div>
                     <div className="content__bottom">
                         <div className="container">
-                            <MoviesList movies={movies} updateCurrentMovie={updateCurrentMovie}/>
+                            <MoviesListGenres currentMoviesGenres={currentMoviesGenres} getCurrentMovie={getCurrentMovie}/>
                         </div>
                     </div>
                 </div>
