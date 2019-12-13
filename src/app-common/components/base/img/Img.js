@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-import './Img.pcss';
-
 function Img(props){
 
     const {imgClass, url, imgName} = props;

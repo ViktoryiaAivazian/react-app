@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 
-import './MoviePage.pcss';
 import Movie from "../../common/movie/Movie.js";
-import MoviesListGenres from "../../common/movies-list-genres/MoviesListGenres";
 import Footer from "../../common/footer/Footer.js";
+import MoviesList from "../../common/movies-list/MoviesList";
 
 class MoviePage extends Component {
 
@@ -39,7 +38,12 @@ class MoviePage extends Component {
                     </div>
                     <div className="content__bottom">
                         <div className="container">
-                            <MoviesListGenres currentMoviesGenres={currentMoviesGenres} getCurrentMovie={getCurrentMovie}/>
+                            <MoviesList
+                                movies={movies}
+                                currentMovie={currentMovie}
+                                currentMoviesGenres={currentMoviesGenres}
+                                getCurrentMovie={getCurrentMovie}
+                            />
                         </div>
                     </div>
                 </div>

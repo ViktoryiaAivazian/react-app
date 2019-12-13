@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 
-import './HomePage.pcss';
 import Header from "../../common/header/Header.js";
 import Sort from "../../common/sort/Sort.js";
 import MoviesList from "../../common/movies-list/MoviesList.js";
@@ -13,25 +12,33 @@ class HomePage extends Component {
     }
 
     render() {
-        const {getCurrentMovie, getInputValue, searchValue, searchMovies, filteredMovies, countMovies, selectedSearchType, getTypeBySearch, sortBy, getTypeBySort} = this.props;
+        const {
+            movies,
+            getCurrentMovie,
+            countMovies,
+            sortBy,
+            onChangeSort,
+            currentMovie,
+            currentMoviesGenres
+        } = this.props;
 
         return (
             <main className="main">
-                <Header getInputValue={getInputValue}
-                        searchValue={searchValue}
-                        selectedSearchType={selectedSearchType}
-                        getTypeBySearch={getTypeBySearch}
-                        searchMovies={searchMovies}/>
+                <Header movies={movies}/>
                 <div className="content">
                     <div className="content__top">
                         <div className="container">
-                            <Sort count={countMovies} getTypeBySort={getTypeBySort} sortBy={sortBy}/>
+                            <Sort count={countMovies} onChangeSort={onChangeSort} sortBy={sortBy}/>
                         </div>
                     </div>
                     <div className="content__bottom">
                         <div className="container">
-                            <MoviesList filteredMovies={filteredMovies}
-                                        getCurrentMovie={getCurrentMovie}/>
+                            <MoviesList
+                                movies={movies}
+                                currentMovie={currentMovie}
+                                currentMoviesGenres={currentMoviesGenres}
+                                getCurrentMovie={getCurrentMovie}
+                            />
                         </div>
                     </div>
                 </div>

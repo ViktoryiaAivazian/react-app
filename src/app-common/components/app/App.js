@@ -1,43 +1,37 @@
 import React, { Component } from "react";
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import "./App.pcss";
 import HomePage from '../pages/home-page/HomePage.js';
 import MoviePage from '../pages/movie-page/MoviePage.js';
 import ErrorBoundary from '../errorBoundary/ErrorBoundary.js';
+import { moviesFetchData } from './app.action.js';
+import { sortMoviesAction } from './app.action.js';
+import { searchByTypeAction } from './app.action.js';
+import { getSearchValAction } from './app.action.js';
+import { searchMoviesAction } from './app.action.js';
+import { getMovieAction } from './app.action.js';
 
 class App extends Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            movies: [],
-            currentMovie: null,
-            currentMoviesGenres: null,
-            searchValue: '',
-            filteredMovies: [],
-            countMovies: null,
-            selectedSearchType: 'title',
-            sortBy: 'date',
-            selectedMovieGenre: null
-        };
+
         this.getCurrentMovie = this.getCurrentMovie.bind(this);
-        this.getInputValue = this.getInputValue.bind(this);
-        this.searchMovies = this.searchMovies.bind(this);
-        this.getTypeBySearch = this.getTypeBySearch.bind(this);
-        this.getTypeBySort = this.getTypeBySort.bind(this);
+        // this.onInputValue = this.onInputValue.bind(this);
+        // this.searchMovies = this.searchMovies.bind(this);
+        // this.onChangeTypeSearch = this.onChangeTypeSearch.bind(this);
+        this.onChangeSort = this.onChangeSort.bind(this);
     }
 
-    getTypeBySort(e){
-        this.setState({
-            sortBy: e.target.value
-        });
-
+    onChangeSort(e){
+        this.props.setTypeSort(e.target.value);
         this.sortMovies(e.target.value);
     }
 
     sortMovies(sortType){
-        let sortMoviesList = this.state.filteredMovies;
+        let sortMoviesList = this.props.movies;
 
         switch (sortType) {
             case 'rating':
@@ -47,23 +41,15 @@ class App extends Component {
                 sortMoviesList = sortMoviesList.sort((a, b) => (new Date(b.release_date) - new Date(a.release_date)));
                 break;
         }
-
-        this.setState({
-            filteredMovies: sortMoviesList,
-        });
     }
 
     getCurrentMovie(id) {
-        this.setState({
-            currentMovie: id
-        });
-
-        this.filterMoviesByGenres(id);
+        this.props.getMovieDetails(id, this.filterMoviesByGenres(id));
     }
 
     filterMoviesByGenres(id){
 
-        let movies = this.state.movies;
+        let movies = this.props.copyMovies;
         let currentGenre = movies.filter(item => item.id === id).map((key) => key.genres);
 
         let sort = movies.filter((film) => {
@@ -73,82 +59,63 @@ class App extends Component {
             }, false);
         });
 
-        this.setState({
-            currentMoviesGenres: sort,
-            selectedMovieGenre: currentGenre
-        });
+        return {
+            sort,
+            currentGenre
+        };
+
     }
 
-    getInputValue(e){
-        let val = e.target.value;
-        this.setState({
-            searchValue: val
-        });
-
-        if(!val.length) {
-            this.clearSearchMovies();
-        }
-    }
-
-    clearSearchMovies(){
-        this.setState({
-            countMovies: 0,
-            filteredMovies: this.state.movies
-        });
-    }
-
-    searchMovies(e){
-        e.preventDefault();
-
-        let type = this.state.selectedSearchType;
-        let updatedMoviesList = this.state.movies;
-        let value = this.state.searchValue.toLowerCase();
-
-        switch (type) {
-            case 'title':
-                updatedMoviesList = updatedMoviesList.filter(item => item.title.toLowerCase().includes(value));
-                break;
-            case 'genre':
-                updatedMoviesList = updatedMoviesList.filter((item) => {
-                    let genres = item.genres.join().toLowerCase().split(',');
-                    return genres.includes(value)
-                });
-                break;
-        }
-
-        this.setState({
-            filteredMovies: updatedMoviesList,
-            countMovies: updatedMoviesList.length
-        });
-
-        if(!value.length){
-            this.clearSearchMovies();
-        }
-    }
-
-    getTypeBySearch(e){
-        this.setState({
-            selectedSearchType: e.target.value
-        });
-    }
+    // onInputValue(e){
+    //     let val = e.target.value;
+    //     this.props.getValSearchMovie(val);
+    //
+    //     if(!val.length) {
+    //         this.clearSearchMovies();
+    //     }
+    // }
+    //
+    // clearSearchMovies(){
+    //     this.props.search(this.props.copyMovies, 0)
+    // }
+    //
+    // searchMovies(e){
+    //     e.preventDefault();
+    //
+    //     let type = this.props.selectedSearchType;
+    //     let updatedMoviesList = this.props.movies;
+    //     let value = this.props.searchValue.toLowerCase();
+    //
+    //     switch (type) {
+    //         case 'title':
+    //             updatedMoviesList = updatedMoviesList.filter(item => item.title.toLowerCase().includes(value));
+    //             break;
+    //         case 'genre':
+    //             updatedMoviesList = updatedMoviesList.filter((item) => {
+    //                 let genres = item.genres.join().toLowerCase().split(',');
+    //                 return genres.includes(value)
+    //             });
+    //             break;
+    //     }
+    //
+    //     this.props.search(updatedMoviesList, updatedMoviesList.length);
+    //
+    //     if(!value.length){
+    //         this.clearSearchMovies();
+    //     }
+    // }
+    //
+    // onChangeTypeSearch(e){
+    //     this.props.setTypeSearch(e.target.value);
+    // }
 
     componentDidMount(){
-        fetch('http://reactjs-cdp.herokuapp.com/movies')
-            .then(res => res.json())
-            .then(json => {
-                this.setState({
-                    movies: json.data,
-                    filteredMovies: json.data.sort((a, b) => (new Date(b.release_date) - new Date(a.release_date)))
-                });
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        this.props.fetchData('http://reactjs-cdp.herokuapp.com/movies');
     }
 
     render() {
 
-        const {movies, currentMovie, searchValue, filteredMovies, countMovies, selectedSearchType, currentMoviesGenres, sortBy, selectedMovieGenre} = this.state;
+        const {movies, currentMovie, currentMoviesGenres, sortBy, selectedMovieGenre, copyMovies} = this.props;
 
         return (
             <ErrorBoundary>
@@ -156,22 +123,17 @@ class App extends Component {
                     <Switch>
                         <Route exact path="/">
                             <HomePage
-                                filteredMovies={filteredMovies}
-                                countMovies={countMovies}
-                                selectedSearchType={selectedSearchType}
+                                movies={movies}
                                 getCurrentMovie={this.getCurrentMovie}
-                                getTypeBySearch={this.getTypeBySearch}
-                                getInputValue={this.getInputValue}
-                                getTypeBySort={this.getTypeBySort}
+                                onChangeSort={this.onChangeSort}
                                 sortBy={sortBy}
-                                searchValue={searchValue}
-                                searchMovies={this.searchMovies}/>
+                            />
                         </Route>
                         <Route exact path="/movie-page/:id">
                             <MoviePage
                                 movies={movies}
                                 currentMoviesGenres={currentMoviesGenres}
-                                filteredMovies={filteredMovies}
+                                copyMovies={copyMovies}
                                 selectedMovieGenre={selectedMovieGenre}
                                 getCurrentMovie={this.getCurrentMovie}
                                 currentMovie={currentMovie}/>
@@ -183,4 +145,51 @@ class App extends Component {
     }
 }
 
-export default App;
+// mapDispatchToProps , mapStateToProps связывают компоненты со строром
+
+// mapStateToProps передает стор в пропсы
+// mapStateToProps должна возвращать объект
+const mapStateToProps = (state) => {
+   return {
+       movies: state.app.movies,
+       copyMovies: state.app.copyMovies,
+
+       currentMovie: state.app.currentMovie,
+       currentMoviesGenres: state.app.currentMoviesGenres,
+       selectedMovieGenre: state.app.selectedMovieGenre,
+
+       // searchValue: state.app.searchValue,
+       // selectedSearchType: state.app.selectedSearchType,
+       // countMovies: state.app.countMovies,
+       sortBy: state.app.sortBy,
+   }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchData: url => dispatch(moviesFetchData(url)),
+        setTypeSort: sortBy => {
+            dispatch(sortMoviesAction(sortBy))
+        },
+        // setTypeSearch: selectedSearchType => {
+        //     dispatch(searchByTypeAction(selectedSearchType))
+        // },
+        // getValSearchMovie: searchValue => {
+        //     dispatch(getSearchValAction(searchValue))
+        // },
+        // search: (movies, countMovies) => {
+        //     dispatch(searchMoviesAction(movies, countMovies))
+        // },
+        getMovieDetails: (currentMovie, obj) => {
+            dispatch(getMovieAction(currentMovie, obj))
+        },
+    }
+};
+
+// connect используется для связывания хранилища Redux с компонентами React.
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(App);
+
+

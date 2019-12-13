@@ -11,7 +11,7 @@ class Sort extends Component {
 
     render() {
 
-        const {sortBy, getTypeBySort} = this.props;
+        const {sortBy, onChangeSort} = this.props;
 
         return (
             <div className="sort">
@@ -22,8 +22,8 @@ class Sort extends Component {
                     <div className="sort__itm">
                         <div className="filter">
                             <span className="filter__text">Sort by:</span>
-                            <Radio name="sort" checked={sortBy === 'date'} caption="Release date" handleChange={(e) => getTypeBySort(e)} value="date"/>
-                            <Radio name="sort" checked={sortBy === 'rating'} caption="Rating" handleChange={(e) => getTypeBySort(e)} value="rating"/>
+                            <Radio name="sort" checked={sortBy === 'date'} caption="Release date" handleChange={(e) => onChangeSort(e)} value="date"/>
+                            <Radio name="sort" checked={sortBy === 'rating'} caption="Rating" handleChange={(e) => onChangeSort(e)} value="rating"/>
                         </div>
                     </div>
                 </div>

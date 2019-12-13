@@ -10,9 +10,7 @@ class Movie extends Component {
         super(props);
     }
 
-    backToHome(){
-
-    }
+    backToHome(){}
 
     render() {
         return (
