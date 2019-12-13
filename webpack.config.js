@@ -6,9 +6,12 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 let WebpackMd5Hash = require('webpack-md5-hash');
 let CleanWebpackPlugin = require('clean-webpack-plugin');
 let fs = require('fs');
+let Router = require("react-router").Router;
+let Route = require("react-router").Route;
+let Switch = require("react-router").Switch;
 
 let conf = {
-    entry: './src/app/index.js',
+    entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: 'bundle.[chunkhash].js',
