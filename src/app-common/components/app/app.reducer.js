@@ -2,13 +2,9 @@ const initialState = {
     movies: [],
     currentMovie: null,
     currentMoviesGenres: null,
-    // searchValue: '',
-    filteredMovies: [],
-    // countMovies: null,
-    // selectedSearchType: 'title',
-    sortBy: 'date',
     selectedMovieGenre: null,
-    copyMovies: []
+    copyMovies: [],
+    sortBy: 'date'
 };
 
 // редъюсер определяет как что-то нужно поменять в store
@@ -21,27 +17,17 @@ const app = (state = initialState, action) => {
                 movies: action.movies,
                 copyMovies: action.copy
             }
+        case 'SEARCH_MOVIES':
+            return {
+                ...state,
+                movies: action.payload,
+            }
         case 'SORT_MOVIES':
             return {
                 ...state,
-                sortBy: action.payload
+                movies: action.payload,
+                sortBy: action.sortBy
             }
-        // case 'SEARCH_MOVIES_BY_TYPE':
-        //     return {
-        //         ...state,
-        //         selectedSearchType: action.payload
-        //     }
-        // case 'GET_SEARCH_VALUE':
-        //     return {
-        //         ...state,
-        //         searchValue: action.payload
-        //     }
-        // case 'SEARCH_MOVIES':
-        //     return {
-        //         ...state,
-        //         movies: action.payload,
-        //         countMovies: action.countMovies,
-        //     }
         case 'GET_CURRENT_MOVIE':
             return {
                 ...state,

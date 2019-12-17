@@ -6,18 +6,19 @@ import Radio from "../../base/radio/Radio.js";
 class Sort extends Component {
 
     constructor(props){
-        super(props)
+        super(props);
+
     }
 
     render() {
 
-        const {sortBy, onChangeSort} = this.props;
+        const {countMovies, sortBy, onChangeSort} = this.props;
 
         return (
             <div className="sort">
                 <div className="sort__outer">
                     <div className="sort__itm">
-                        <span className="sort__count">{this.props.count > 0 ? `${this.props.count} movies found`: ''}</span>
+                        <span className="sort__count">{countMovies > 0 ? `${countMovies} movies found`: ''}</span>
                     </div>
                     <div className="sort__itm">
                         <div className="filter">

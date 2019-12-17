@@ -15,20 +15,21 @@ class HomePage extends Component {
         const {
             movies,
             getCurrentMovie,
+            currentMovie,
+            currentMoviesGenres,
             countMovies,
             sortBy,
             onChangeSort,
-            currentMovie,
-            currentMoviesGenres
+            copyMovies
         } = this.props;
 
         return (
             <main className="main">
-                <Header movies={movies}/>
+                <Header movies={movies} copyMovies={copyMovies}/>
                 <div className="content">
                     <div className="content__top">
                         <div className="container">
-                            <Sort count={countMovies} onChangeSort={onChangeSort} sortBy={sortBy}/>
+                            <Sort movies={movies} countMovies={countMovies} sortBy={sortBy} onChangeSort={onChangeSort}/>
                         </div>
                     </div>
                     <div className="content__bottom">

@@ -1,15 +1,13 @@
-import React, {Component, Fragment} from "react";
-
+import React, {Component} from "react";
 import './Search.pcss';
 import Button from "../../base/button/Button.js";
 import Radio from "../../base/radio/Radio.js";
+import {connect} from "react-redux";
 import {
     getSearchValAction,
     searchByTypeAction,
     searchMoviesAction,
 } from "./search.action";
-
-import {connect} from "react-redux";
 
 class Search extends Component {
 
@@ -53,7 +51,7 @@ class Search extends Component {
                 break;
         }
 
-        this.props.search(updatedMoviesList, updatedMoviesList.length)
+        this.props.search(updatedMoviesList, updatedMoviesList.length);
 
         if(!value.length){
             this.clearSearchMovies();
