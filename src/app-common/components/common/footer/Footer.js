@@ -1,9 +1,8 @@
-import React, { Component } from "react";
-import {Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+import React from "react";
+import { Link } from 'react-router-dom';
 import './Footer.pcss';
 
-function Footer(props){
+function Footer(){
     return (
         <footer className="footer">
             <div className="container">

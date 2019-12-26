@@ -19,7 +19,6 @@ const search = (state = initialState, action) => {
         case 'SEARCH_MOVIES':
             return {
                 ...state,
-                movies: action.payload,
                 countMovies: action.countMovies,
             }
         default:

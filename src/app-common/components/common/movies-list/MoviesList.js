@@ -1,23 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 import {Link} from 'react-router-dom';
 import Card from "../card/Card.js";
 
-class MoviesList extends Component {
+function MoviesList(props) {
 
-    constructor(props){
-        super(props);
-    }
+    const {movies, getCurrentMovie, currentMoviesGenres, currentMovie} = props;
+    const obj = currentMovie ? currentMoviesGenres : movies;
 
-    render() {
-        const {movies, getCurrentMovie, currentMoviesGenres, currentMovie} = this.props;
-        let obj;
-
-        return (
-            <div className="content__outer">
-                {
-                    currentMovie ? (this.obj = currentMoviesGenres) : (this.obj = movies),
-                    this.obj.length ? (
-                        this.obj.map((movie, i) =>
+    return (
+        <div className="content__outer">
+            {
+                obj.length ? (
+                    obj.map((movie, i) =>
                         <div className="content__itm" key={movie.id}>
                             <Link to={`/movie-page/${movie.id}`} onClick={() => { getCurrentMovie(movie.id)}}>
                                 <Card
@@ -30,15 +24,14 @@ class MoviesList extends Component {
                                 />
                             </Link>
                         </div>
-                        )
-                    ):
-                    (
-                        <div className="spinner"> No films found ... </div>
                     )
-                }
-            </div>
-        );
-    }
+                ):
+                (
+                    <div className="spinner"> No films found ... </div>
+                )
+            }
+        </div>
+    );
 }
 
 export default MoviesList;

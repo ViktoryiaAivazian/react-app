@@ -1,31 +1,21 @@
-import React, { Component } from "react";
-
+import React from "react";
 import './Radio.pcss';
 
-class Radio extends Component{
+function Radio(props) {
+    const {caption, value, name, checked, handleChange} = props;
 
-    constructor(props){
-        super(props);
-    }
-
-    render(){
-
-        const {caption, value, name, checked, handleChange} = this.props;
-
-        return (
-            <label className="filter__label">
-                <input
-                    className="filter__radio"
-                    type="radio"
-                    value={value}
-                    name={name}
-                    checked={checked}
-                    onChange={handleChange}/>
-
-                <span className="filter__span">{caption}</span>
-            </label>
-        )
-    }
+    return (
+        <label className="filter__label">
+            <input
+                className="filter__radio"
+                type="radio"
+                value={value}
+                name={name}
+                checked={checked}
+                onChange={handleChange}/>
+            <span className="filter__span">{caption}</span>
+        </label>
+    )
 }
 
 export default Radio;

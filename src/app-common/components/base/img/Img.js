@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 
 function Img(props){
-
     const {imgClass, url, imgName} = props;
 
     return (

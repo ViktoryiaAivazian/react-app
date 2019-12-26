@@ -1,7 +1,6 @@
-import React, { Component } from "react";
-
-import './Header.pcss';
+import React from "react";
 import Search from "../search/Search.js";
+import './Header.pcss';
 
 function Header(props) {
 

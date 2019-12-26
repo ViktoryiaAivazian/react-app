@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import "./App.pcss";
 import HomePage from '../pages/home-page/HomePage.js';
 import MoviePage from '../pages/movie-page/MoviePage.js';
 import ErrorBoundary from '../errorBoundary/ErrorBoundary.js';
-
 import { moviesFetchData, getMovieAction, sortMoviesAction } from './app.action.js';
+import "./App.pcss";
 
 class App extends Component {
 
