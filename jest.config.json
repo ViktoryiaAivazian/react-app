@@ -1,0 +1,7 @@
+{
+  "testRegex": "((\\.|/*.)(spec))\\.js?$",
+  "moduleNameMapper": {
+    "\\.(|css|less|scss|sass|pcss)$": "identity-obj-proxy"
+  },
+  "setupFilesAfterEnv": ["./src/setupTest.js"]
+}
