@@ -13,13 +13,12 @@ const store = createStore(
     composeWithDevTools(applyMiddleware(thunk))
 );
 
-ReactDOM.render(
+ReactDOM.hydrate(
     <Provider store={store}>
         <App/>
     </Provider>,
     document.getElementById("root")
 );
-
 
 // <Provider />, оборачивает всё наше приложение и передаёт хранилище store всем дочерним элементам.
 // redux-thunk

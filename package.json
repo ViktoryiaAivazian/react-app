@@ -7,7 +7,8 @@
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
     "test": "jest --config ./jest.config.json",
-    "test: watch": "npm run test - --watch"
+    "test: watch": "npm run test - --watch",
+    "server": "webpack --config ./src/server/index.js --mode development"
   },
   "author": "Viktoryia",
   "license": "ISC",
@@ -50,6 +51,7 @@
     "webpack-md5-hash": "0.0.6"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "html-loader": "^0.5.5",
     "jest": "^24.9.0",
     "normalize.css": "^8.0.1",
